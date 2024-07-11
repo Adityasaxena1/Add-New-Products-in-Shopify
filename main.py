@@ -2,8 +2,8 @@ import requests
 import common
 
 
-# def add_new_product(sku, prices):
-def add_new_product(sku):
+def add_new_product(sku, prices):
+    
     add_new_product_url = f"{common.get_api_base_url()}/products.json"
 
     values = ['10K White Gold', '10K Yellow Gold', '10K Rose Gold', '14K White Gold', '14K Yellow Gold',
@@ -11,9 +11,9 @@ def add_new_product(sku):
 
     variants = []
     for value in values:
-        # price = common.get_variant_price(value, prices)
-        # price = round(int(price) / 10) * 10
-        variants.append({"option1": value, "price": 999, "sku": sku})
+        price = common.get_variant_price(value, prices)
+        price = round(int(price) / 10) * 10
+        variants.append({"option1": value, "price": price, "sku": sku})
 
     folder_path = fr"D:\EWS\{sku}"
     images = common.get_images_from_folder(folder_path)
@@ -41,15 +41,13 @@ def add_new_product(sku):
     print(response.json())
 
 
-# skus = [
-#     "SMM003"
-# ]
 
-# sku_prices = common.get_prices_from_file()
+
+sku_prices = common.get_prices_from_file()
 types_dict = common.get_type_from_file()
 skus = [key for key in types_dict]
-# print(skus)
+
 for sku in skus:
-    # sku_price = sku_prices[sku]
-    # add_new_product(sku, sku_price)
-    add_new_product(sku)
+    sku_price = sku_prices[sku]
+    add_new_product(sku, sku_price)
+    
