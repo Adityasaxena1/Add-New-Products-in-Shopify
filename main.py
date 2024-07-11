@@ -11,10 +11,12 @@ def add_new_product(sku, prices):
 
     variants = []
     for value in values:
+        # Getting Price for the product
         price = common.get_variant_price(value, prices)
         price = round(int(price) / 10) * 10
         variants.append({"option1": value, "price": price, "sku": sku})
 
+    # Getting Images for the product
     folder_path = fr"D:\EWS\{sku}"
     images = common.get_images_from_folder(folder_path)
 
